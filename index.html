@@ -123,18 +123,18 @@ body {
 
 <script>
 /* =============================
-   URL BACKEND GAS (FINAL)
+   URL GAS (FINAL)
 ============================= */
 const GAS_URL =
-  "https://script.google.com/macros/s/AKfycbzlOeVUCfogUcyjX6EOF2_xSAgvZfWTLXw6H0l11zKfGFO8YBX3QfMSj-Du6ErM5y3mJw/exec?action=getAllArsip";
+  "https://script.google.com/macros/s/AKfycbxl9BUBOKZAO6NKpbTG1ErdCdyQFTYCZKbc9YzUgIZhsRBo3iUFRdn8cyqvQsSb1yNPqQ/exec?action=getAllArsip";
 
 let arsipData = [];
 
 /* LOAD DATA */
 fetch(GAS_URL)
-  .then(response => response.json())
-  .then(data => {
-    console.log("DATA DARI GAS:", data); // DEBUG
+  .then(res => res.text())
+  .then(text => {
+    const data = JSON.parse(text);
     arsipData = data.slice(0, 50);
     renderList(arsipData);
   })
