@@ -101,9 +101,7 @@ body {
 <!-- HEADER -->
 <div class="header">
   <h2>ARSIP UMPAR</h2>
-  <a
-    href="https://drive.google.com/drive/folders/1qz-qpqDW8PtlC2xOwzTGSko4jsZ234wb"
-    target="_blank">
+  <a href="https://drive.google.com/drive/folders/1qz-qpqDW8PtlC2xOwzTGSko4jsZ234wb" target="_blank">
     ARSIP LAMA
   </a>
 </div>
@@ -124,17 +122,26 @@ body {
 <div id="listArsip"></div>
 
 <script>
-  const GAS_URL =
-  "https://script.google.com/macros/s/AKfycbx1McJdL1hiLrkL5E1qhFZjhWv3luxKEmXdmRkxF9OwL-KBQx2cX3VZdyRf4NnJFZJ1IQ/exec?action=getAllArsip";
+/* =============================
+   URL BACKEND GAS (FINAL)
+============================= */
+const GAS_URL =
+  "https://script.google.com/macros/s/AKfycbzlOeVUCfogUcyjX6EOF2_xSAgvZfWTLXw6H0l11zKfGFO8YBX3QfMSj-Du6ErM5y3mJw/exec?action=getAllArsip";
 
 let arsipData = [];
 
 /* LOAD DATA */
 fetch(GAS_URL)
-  .then(res => res.json())
+  .then(response => response.json())
   .then(data => {
+    console.log("DATA DARI GAS:", data); // DEBUG
     arsipData = data.slice(0, 50);
     renderList(arsipData);
+  })
+  .catch(err => {
+    document.getElementById("listArsip").innerHTML =
+      "<p style='text-align:center;color:red'>Gagal memuat data</p>";
+    console.error(err);
   });
 
 /* RENDER CARD */
@@ -142,7 +149,7 @@ function renderList(data) {
   const list = document.getElementById("listArsip");
   list.innerHTML = "";
 
-  if (data.length === 0) {
+  if (!data || data.length === 0) {
     list.innerHTML =
       "<p style='text-align:center'>Data tidak ditemukan</p>";
     return;
