@@ -115,7 +115,7 @@ body {
 </div>
 
 <div class="info">
-  Menampilkan 50 arsip terakhir (berdasarkan waktu upload)
+  Menampilkan semua arsip (berdasarkan waktu upload)
 </div>
 
 <!-- LIST -->
@@ -123,7 +123,7 @@ body {
 
 <script>
 /* =============================
-   URL GAS (SUDAH DIGANTI)
+   URL GAS
 ============================= */
 const GAS_URL =
   "https://script.google.com/macros/s/AKfycbwdFKajGUWgk0vpj_hKcxcWQ0x2o95QpJBOe9u6g30YdC6YiiWW7w07_qbh854s7hbH/exec?action=getAllArsip";
@@ -134,7 +134,7 @@ let arsipData = [];
 fetch(GAS_URL)
   .then(res => res.json())
   .then(data => {
-    arsipData = data.slice(0, 50);
+    arsipData = data;   // SEMUA DATA, TANPA BATAS
     renderList(arsipData);
   })
   .catch(err => {
